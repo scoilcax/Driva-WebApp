@@ -4,7 +4,7 @@ const urlsToCache = [
   '/Driva-WebApp/webapp/index.html',
   '/Driva-WebApp/webapp/style.css',
   '/Driva-WebApp/webapp/script.js',
-  '/Driva-WebApp/web/manifest.json',
+  '/Driva-WebApp/manifest.json',
   '/Driva-WebApp/webapp/img/icons/icon-192x192.png',
   '/Driva-WebApp/webapp/img/icons/icon-512x512.png',
   'https://unpkg.com/leaflet@1.7.1/dist/leaflet.css',
