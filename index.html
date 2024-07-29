@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"> <!-- Disable page zooming -->
+    <title>Driva - Your Ride Anytime, Anywhere</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css" />
+    <link rel="stylesheet" href="style.css"/>
+    <!-- PWA requirements -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#87CEFA">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Driva">
+    <link rel="apple-touch-icon" href="img/icons/icon-192x192.png">
+</head>
+<body>
+    <!-- Installation Instructions Overlay -->
+    <div id="install-overlay" class="install-overlay">
+        <div class="install-overlay-content">
+            <h1>Install Driva Web App</h1>
+            <p>To install this web app on your mobile device:</p>
+            <ol>
+                <li>Open the browser menu or share menu on safari.</li>
+                <li>Find and select "Add to Home screen" or "Install App".</li>
+                <li>Follow the on-screen instructions.</li>
+            </ol>
+            <!-- Removed close button to force installation -->
+        </div>
+    </div>
+
+    <main id="app-content">
+        <button class="theme-toggle-button" onclick="toggleTheme()">
+            <i class="fas" id="theme-icon"></i>
+        </button>
+        <section class="hero">
+            <h2 class="heading">Welcome to Driva</h2>
+            <p class="subheading">The place to find local drivers</p>
+            <button class="button get-started-button" onclick="showDestinationSection()">
+                <i class="fas fa-car-side"></i> <span>GO!</span>
+            </button>
+        </section>
+        <section id="destination-section" class="destination-section">
+            <h2 class="heading">Plan Your Ride</h2>
+            <form onsubmit="event.preventDefault(); addMarkersAndFetchRoute();">
+                <div class="input-container">
+                    <div class="input-wrapper">
+                        <label for="start-point" class="body-text">Start Point:</label>
+                        <input type="text" id="start-point" name="start-point" list="start-point-list" oninput="getLocationSuggestions(event, 'start')">
+                        <datalist id="start-point-list"></datalist>
+                    </div>
+                    <div class="input-wrapper">
+                        <label for="destination" class="body-text">Destination:</label>
+                        <input type="text" id="destination" name="destination" list="destination-list" oninput="getLocationSuggestions(event, 'dest')">
+                        <datalist id="destination-list"></datalist>
+                    </div>
+                </div>
+                <button type="submit" class="button request-button">Request Driver</button>
+            </form>
+        </section>
+        <div id="map-container">
+            <div id="map"></div>
+        </div>
+        <div id="unavailable-message" class="destination-section">
+            <h2 class="heading">DRIVA is unavailable outside of Europe</h2>
+        </div>
+    </main>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
+    <script src="script.js"></script> <!-- Include your main script here -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js')
+            .then(function(registration) {
+                console.log('ServiceWorker registration successful:', registration);
+            })
+            .catch(function(error) {
+                console.log('ServiceWorker registration failed:', error);
+            });
+        }
+
+        // Show the install overlay on page load and hide main content
+        document.addEventListener('DOMContentLoaded', function() {
+            const installOverlay = document.getElementById('install-overlay');
+            const appContent = document.getElementById('app-content');
+            installOverlay.style.display = 'flex'; // Display the overlay
+            appContent.style.visibility = 'hidden'; // Hide the main content
+        });
+
+        function closeInstallOverlay() {
+            const installOverlay = document.getElementById('install-overlay');
+            const appContent = document.getElementById('app-content');
+            installOverlay.style.display = 'none';
+            appContent.style.visibility = 'visible';
+        }
+    </script>
+</body>
+</html>
