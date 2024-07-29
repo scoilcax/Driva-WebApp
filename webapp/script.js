@@ -211,7 +211,7 @@ document.addEventListener('DOMContentLoaded', function() {
         maxBoundsViscosity: 1.0
     });
 
-    L.tileLayer('https://api.maptiler.com/maps/streets-v2/{z}/{x}/{y}.png?key=i8vlNPFiy59ojUm838NB', {
+    L.tileLayer('https://api.maptiler.com/maps/streets-v2/{z}/{x}/{y}.png?key=[YOUR-API-KEY]', {
         minZoom: 4,
         maxZoom: 19,
         attribution: '&copy; <a href="https://www.maptiler.com/copyright/">MapTiler</a> contributors, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
