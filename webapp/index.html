@@ -51,13 +51,7 @@
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
     <script>
-        window.addEventListener('orientationchange', function ()
-            {
-                if (window.innerHeight < window.innerWidth)
-                {
-                    document.getElementsByTagName('body')[0].style.transform = "rotate(90deg)";
-                }
-            });
+        screen.lockOrientation("portrait-primary");
     </script>
     <script>
         let startMarker, destMarker, routeControl;
