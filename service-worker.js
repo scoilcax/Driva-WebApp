@@ -3,7 +3,6 @@ const urlsToCache = [
   'https://scoilcax.github.io/Driva-WebApp/webapp/',
   'https://scoilcax.github.io/Driva-WebApp/webapp/index.html',
   'https://scoilcax.github.io/Driva-WebApp/webapp/style.css',
-  'https://scoilcax.github.io/Driva-WebApp/webapp/script.js',
   'https://scoilcax.github.io/Driva-WebApp/manifest.json',
   'https://scoilcax.github.io/Driva-WebApp/webapp/img/icons/icon-192x192.png',
   'https://scoilcax.github.io/Driva-WebApp/webapp/img/icons/icon-512x512.png',
