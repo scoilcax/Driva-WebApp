@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -253,13 +254,13 @@
                 zoomControl: false, // Disable zoom controls
                 scrollWheelZoom: true, // Allow zooming with scroll wheel
                 doubleClickZoom: true, // Allow double click zoom
-                dragging: false, // Disable dragging of the map
+                dragging: true, // Disable dragging of the map
                 attributionControl: false, // Disable attribution control
                 maxBounds: [[34.0, -25.0], [72.0, 45.0]],
                 maxBoundsViscosity: 1.0
             });
 
-            L.tileLayer('https://api.maptiler.com/maps/streets-v2/{z}/{x}/{y}.png?key=i8vlNPFiy59ojUm838NB', {
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 minZoom: 4,
                 maxZoom: 19
             }).addTo(map);
