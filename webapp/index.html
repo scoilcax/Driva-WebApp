@@ -208,34 +208,47 @@
             if (routeControl) {
                 map.removeControl(routeControl);
             }
-
+        
             routeControl = L.Routing.control({
-                waypoints: [
-                    L.latLng(startLatLng),
-                    L.latLng(destLatLng)
-                ],
-                createMarker: function(i, waypoint, n) {
-                    const iconUrl = i === 0 ? 'img/start-icon.png' : 'img/destination-icon.png';
-                    return L.marker(waypoint.latLng, {
-                        icon: L.icon({
-                            iconUrl: iconUrl,
-                            iconSize: [32, 32],
-                            iconAnchor: [16, 32],
-                            popupAnchor: [0, -32]
-                        })
-                    });
-                },
-                routeWhileDragging: false, // Disable dragging waypoints
-                show: false, // Disable the default turn-by-turn navigation
-                addWaypoints: false // Disable adding waypoints by clicking on the map
-            }).addTo(map);
+                    waypoints: [
+                        L.latLng(startLatLng),
+                        L.latLng(destLatLng)
+                    ],
+                    createMarker: function(i, waypoint, n) {
+                        const iconUrl = i === 0 ? 'img/start-icon.png' : 'img/destination-icon.png';
+                        return L.marker(waypoint.latLng, {
+                            icon: L.icon({
+                                iconUrl: iconUrl,
+                                iconSize: [32, 32],
+                                iconAnchor: [16, 32],
+                                popupAnchor: [0, -32]
+                            })
+                        });
+                    },
+                    routeWhileDragging: false, // Disable dragging waypoints
+                    show: false, // Disable the default turn-by-turn navigation
+                    addWaypoints: false, // Disable adding waypoints by clicking on the map
+                    router: L.Routing.osrmv1({
+                        serviceUrl: 'https://router.project-osrm.org/route/v1',
+                        profile: 'driving',
 
+                    })
+                }).addTo(map);
+        
             routeControl.on('routesfound', function(e) {
                 const routes = e.routes;
+                const segments = routes[0].coordinates;
+                for (let segment of segments) {
+                    if (segment.hasOwnProperty('ferry') && segment.sea) {
+                        alert('Sea crossing detected. This route is not allowed.');
+                        map.removeControl(routeControl);
+                        return;
+                    }
+                }
                 const summary = routes[0].summary;
                 console.log(`Route found: ${summary.totalDistance / 1000} km, ${summary.totalTime / 60} minutes`);
             });
-
+            
             routeControl.on('routingerror', function() {
                 alert('Unable to find a route between the start point and destination. Please choose a different destination.');
             });
