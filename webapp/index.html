@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css" />
     <link rel="stylesheet" href="style.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 </head>
 <body>
     <main>
@@ -26,21 +28,18 @@
             <form onsubmit="event.preventDefault(); addMarkersAndFetchRoute();">
                 <div class="input-container">
                     <div class="input-wrapper">
-                        <label for="start-point" class="body-text">Start Point:</label>
-                        <input type="text" id="start-point" name="start-point" list="start-point-list" oninput="getLocationSuggestions(event, 'start')">
+                        <input type="text" id="start-point" name="start-point" list="start-point-list" placeholder="Start Point" oninput="getLocationSuggestions(event, 'start')">
                         <datalist id="start-point-list"></datalist>
                     </div>
                     <div class="input-wrapper">
-                        <label for="destination" class="body-text">Destination:</label>
-                        <input type="text" id="destination" name="destination" list="destination-list" oninput="getLocationSuggestions(event, 'dest')">
+                        <input type="text" id="destination" name="destination" list="destination-list" placeholder="Destination" oninput="getLocationSuggestions(event, 'dest')">
                         <datalist id="destination-list"></datalist>
                     </div>
                     <div class="input-wrapper">
-                        <label for="phone-number" class="body-text">Phone Number:</label>
-                        <input type="tel" id="phone-number" name="phone-number" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="123-456-7890" required>
+                        <input id="phone" type="tel" name="phone" />
                     </div>
                 </div>
-                <button type="submit" class="button request-button">Request Driver</button>
+                <button type="submit" class="button btn request-button">Request Driver</button>
             </form>
         </section>
         <div id="map-container">
@@ -314,5 +313,12 @@
             }
         });
     </script>
+    <script>
+        const phoneInputField = document.querySelector("#phone");
+        const phoneInput = window.intlTelInput(phoneInputField, {
+          utilsScript:
+            "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+        });
+      </script>
 </body>
 </html>
